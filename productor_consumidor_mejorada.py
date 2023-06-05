@@ -5,7 +5,6 @@ Created on Mon Jun  5 11:21:59 2023
 @author: USUARIO
 """
 
-
 from multiprocessing import Process
 from multiprocessing import Semaphore
 from multiprocessing import Value
@@ -26,6 +25,7 @@ def producir(empty, non_empty, num):
         num_aleatorio += random.randint(1,10)
         #Entramos a una sección critica
         empty.acquire()   #esperamos a que el semáforo empty esté libre
+        print(f'Proceso {current_process().name} va a producir')
         num.value = num_aleatorio
         print(f'Proceso {current_process().name} produce el valor {num.value}')
         sleep(random.random()/3)
@@ -34,6 +34,7 @@ def producir(empty, non_empty, num):
     #Entramos a una sección critica
     empty.acquire()
     num.value = -1  #Cuando hemos acabado, añadimos un -1
+    print(f'Proceso {current_process().name} ha acabado y tiene el valor final {num.value}')
     non_empty.release()
     #Salimos de la sección critica
 
@@ -51,18 +52,20 @@ def consumir(empty, non_empty, nums,  buffer):
     while no_todos_seleccionados:
         minimo = inf
         valor = None
-        for i in range(NPROD):   #calculamos el minimo elemento de todos los dispoibles
+        for i in range(NPROD):   #calculamos el minimo elemento de todos los disponibles
             numero = nums[i].value
             if numero < minimo and numero != -1 and numero != -2:
                 minimo = numero
                 valor = i
-        if minimo == inf:    #si no hay ningun elemento mas para seleccionar, paramos
+        
+        if minimo == inf:    #si no hay ningun elemento mas para seleccionar, entonces el minimo sigue siendo infinito y paramos
             no_todos_seleccionados = False
         else:     #si hay un elemento disponible, entonces
             nums[valor].value = -2  #añadimos el valor -2 al correspondiente productor
             buffer.append(minimo)    #añadimos al buffer el minimo seleccionado
-            print(f'El consumidor consume {minimo} del productor{valor+1}')
+            print(f'El consumidor ha cogido del productor{valor+1} el valor {minimo}')
             print('el buffer en este momento es:', buffer, '\n')
+            print(f'El productor {valor+1} ahora esta vacío, tiene el valor {nums[valor].value} ')
             empty[valor].release()   #liberamos el semáforo del productor para que pueda producir
             sleep(random.random()/3) 
             non_empty[valor].acquire()   #para la siguiente vuelta del bucle, esperamos a que el productor poduzca un número
