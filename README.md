@@ -9,6 +9,8 @@ ducir, el valor -1. También tenemos un consumidor, el cual tiene que escoger el
 entre todos los valores disponibles de los productores y añadirlo al buffer. Para ello,
 los productores solo podrán producir un elemento cuando su "casilla" este vacia, es decir, 
 el consumidor haya cogido el elemento que le corresponde al productor.
+El consimidor espera a que todos los productores tengan un elemento producido y añade al buffer
+el menor de todos ellos. 
 
 Para su correcto funcionamiento, se le asigna un semáforo a cada productor.
 
