@@ -26,7 +26,7 @@ def producir(empty, non_empty, num):
         #Entramos a una sección critica
         empty.acquire()   #esperamos a que el semáforo empty esté libre
         print(f'Proceso {current_process().name} va a producir')
-        num.value = num_aleatorio
+        num.value = num_aleatorio #Actualizamos el valor del productor
         print(f'Proceso {current_process().name} produce el valor {num.value}')
         sleep(random.random()/3)
         non_empty.release()   #liberamos el semáforo non_empty
@@ -47,7 +47,6 @@ def consumir(empty, non_empty, nums,  buffer):
     for i in range(NPROD):   #Vemos que todos los productores hayan producido
         non_empty[i].acquire()
 
-
     no_todos_seleccionados = True
     while no_todos_seleccionados:
         minimo = inf
@@ -60,7 +59,7 @@ def consumir(empty, non_empty, nums,  buffer):
         
         if minimo == inf:    #si no hay ningun elemento mas para seleccionar, entonces el minimo sigue siendo infinito y paramos
             no_todos_seleccionados = False
-        else:     #si hay un elemento disponible, entonces
+        else:     #si hay al menos un elemento disponible, entonces
             nums[valor].value = -2  #añadimos el valor -2 al correspondiente productor
             buffer.append(minimo)    #añadimos al buffer el minimo seleccionado
             print(f'El consumidor ha cogido del productor{valor+1} el valor {minimo}')
