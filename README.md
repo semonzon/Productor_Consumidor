@@ -24,5 +24,6 @@ Para ejecutar el programa, es necesario introducir en la terminal el siguiente c
 En la salida se mostrará todas las veces que el productor produce y el consumidor
 obtiene un número. 
 Se adjuntan capturas de pantalla de un ejemplo al ejecutar el programa.
-![VirtualBox_ubuntu23_05_06_2023_11_15_56](https://github.com/semonzon/Productor_Consumidor/assets/124071911/635f8c58-f2bc-44f0-bf26-1d840fd6295e)
-![VirtualBox_ubuntu23_05_06_2023_11_16_12](https://github.com/semonzon/Productor_Consumidor/assets/124071911/ff247a01-e073-48ec-9b4a-a6ea3fbe0a03)
+
+![prod_cons_captura1](https://github.com/semonzon/Productor_Consumidor/assets/124071911/4b5b2e3a-47c8-41a2-ba7c-6c031bc4578a)
+![prod_cons_captura2](https://github.com/semonzon/Productor_Consumidor/assets/124071911/c129877a-244c-4647-a3ec-dd17d89ce8df)
